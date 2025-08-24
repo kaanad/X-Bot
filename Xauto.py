@@ -1,5 +1,3 @@
-# 🚀 X (Twitter) Automation Bot — Fixed for API v2
-
 import tweepy
 import os
 import schedule
@@ -184,4 +182,5 @@ if __name__ == "__main__":
         print("❌ Failed to initialize bot. Check credentials and API access level.")
 
     print("👋 Bot has stopped.")
+
 

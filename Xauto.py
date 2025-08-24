@@ -6,12 +6,13 @@ import schedule
 import time
 
 # --- User Credentials ---
-API_KEY = "95OjPJY6deD7JmVbJmhOKUSM8"
-API_SECRET = "3TwPmxv47hS3FVUGCUgGR2LUqVU8oRPo6w2mVnePZ6YlCWZj8F"
-ACCESS_TOKEN = "1307953549880549377-WzUBFjhcQhHSbaPERUc7vBVjvJGm7W"
-ACCESS_TOKEN_SECRET = "ADw7wjahPkgo14fM9XLQj7h7FwvefX1NQHPYULF7QjeaJ"
+import os
 
-BEARER_TOKEN = "AAAAAAAAAAAAAAAAAAAAAE3y3gEAAAAAiMhvX0xr7cv%2Fuj9%2FfG4q7JiGagE%3DRaNeBJXDAeHElR1lS7A05iYOe1CwZaaTM4t9ouPl78stxtr1Bv "
+API_KEY = os.getenv("TWITTER_API_KEY")
+API_SECRET = os.getenv("TWITTER_API_SECRET")
+ACCESS_TOKEN = os.getenv("TWITTER_ACCESS_TOKEN")
+ACCESS_TOKEN_SECRET = os.getenv("TWITTER_ACCESS_SECRET")
+BEARER_TOKEN = os.getenv("TWITTER_BEARER_TOKEN")
 
 # --- Bot Configuration ---
 TWEETS_FILE = "tweets.txt"
@@ -183,3 +184,4 @@ if __name__ == "__main__":
         print("❌ Failed to initialize bot. Check credentials and API access level.")
 
     print("👋 Bot has stopped.")
+

@@ -6,7 +6,7 @@ on:
     - cron: "20 2 * * *"
     # 7:50 PM IST = 14:20 UTC
     - cron: "20 14 * * *"
-  workflow_dispatch:  # lets you run manually from Actions tab too
+  workflow_dispatch:   # keep manual trigger too
 
 jobs:
   run-bot:

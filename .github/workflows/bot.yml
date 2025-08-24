@@ -1,14 +1,17 @@
-name: Twitter Bot
+name: Twitter Bot Automation
 
 on:
   schedule:
-    - cron: "10 2 * * *"   #  7.40 am
-    - cron: "20 14 * * *"   # 7:50 pm
-  workflow_dispatch:
+    # 7:50 AM IST = 02:20 UTC
+    - cron: "20 2 * * *"
+    # 7:50 PM IST = 14:20 UTC
+    - cron: "20 14 * * *"
+  workflow_dispatch:  # lets you run manually from Actions tab too
 
 jobs:
   run-bot:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3

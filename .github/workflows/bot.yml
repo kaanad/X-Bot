@@ -1,16 +1,16 @@
-name: Tweet Bot Scheduler
+name: Twitter Bot
 
 on:
   schedule:
-    - cron: "10 2 * * *"   # 07:40 AM IST = 02:10 UTC
-    - cron: "10 14 * * *"  # 07:40 PM IST = 14:10 UTC
-  workflow_dispatch: # lets you trigger manually too
+    - cron: "10 2 * * *"   # 7:40 AM IST (02:10 UTC)
+    - cron: "10 14 * * *"  # 7:40 PM IST (14:10 UTC)
+  workflow_dispatch:        # lets you run manually too
 
 jobs:
   run-bot:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v3
 
       - name: Set up Python
@@ -22,4 +22,9 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Run bot
+        env:
+          API_KEY: ${{ secrets.API_KEY }}
+          API_SECRET: ${{ secrets.API_SECRET }}
+          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          ACCESS_TOKEN_SECRET: ${{ secrets.ACCESS_TOKEN_SECRET }}
         run: python bot.py

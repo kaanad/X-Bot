@@ -4,7 +4,7 @@ on:
   schedule:
     - cron: "30 3 * * *"   # 9:00 AM IST (03:30 UTC)
     - cron: "30 15 * * *"  # 9:00 PM IST (15:30 UTC)
-  workflow_dispatch:        # allows manual run
+  workflow_dispatch:        # allows manual run for testing
 
 jobs:
   tweet:
@@ -21,7 +21,7 @@ jobs:
       - name: Install dependencies
         run: pip install tweepy
 
-      - name: Run bot
+      - name: Run Twitter Bot
         env:
           TWITTER_API_KEY: ${{ secrets.TWITTER_API_KEY }}
           TWITTER_API_SECRET: ${{ secrets.TWITTER_API_SECRET }}
@@ -29,3 +29,12 @@ jobs:
           TWITTER_ACCESS_SECRET: ${{ secrets.TWITTER_ACCESS_SECRET }}
           TWITTER_BEARER_TOKEN: ${{ secrets.TWITTER_BEARER_TOKEN }}
         run: python Xauto.py
+
+      - name: Commit updated files
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add posted_tweets.txt
+          git diff --staged --quiet || git commit -m "Update posted tweets log [skip ci]"
+          git push
+        continue-on-error: true

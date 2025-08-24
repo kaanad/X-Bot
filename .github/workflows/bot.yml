@@ -1,17 +1,14 @@
-name: Twitter Bot Automation
+name: Twitter Bot
 
 on:
   schedule:
-    # 7:50 AM IST = 02:20 UTC
-    - cron: "20 2 * * *"
-    # 7:50 PM IST = 14:20 UTC
-    - cron: "20 14 * * *"
-  workflow_dispatch:   # keep manual trigger too
+    - cron: "30 3 * * *"   # 9:00 AM IST (03:30 UTC)
+    - cron: "30 15 * * *"  # 9:00 PM IST (15:30 UTC)
+  workflow_dispatch:        # allows manual run
 
 jobs:
-  run-bot:
+  tweet:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
@@ -19,16 +16,16 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: "3.10"
+          python-version: "3.x"
 
       - name: Install dependencies
-        run: pip install tweepy
+        run: pip install tweepy schedule
 
       - name: Run bot
         env:
-          API_KEY: ${{ secrets.TWITTER_API_KEY }}
-          API_SECRET: ${{ secrets.TWITTER_API_SECRET }}
-          ACCESS_TOKEN: ${{ secrets.TWITTER_ACCESS_TOKEN }}
-          ACCESS_TOKEN_SECRET: ${{ secrets.TWITTER_ACCESS_SECRET }}
-          BEARER_TOKEN: ${{ secrets.TWITTER_BEARER_TOKEN }}
-        run: python Xauto.py
+          TWITTER_API_KEY: ${{ secrets.TWITTER_API_KEY }}
+          TWITTER_API_SECRET: ${{ secrets.TWITTER_API_SECRET }}
+          TWITTER_ACCESS_TOKEN: ${{ secrets.TWITTER_ACCESS_TOKEN }}
+          TWITTER_ACCESS_SECRET: ${{ secrets.TWITTER_ACCESS_SECRET }}
+          TWITTER_BEARER_TOKEN: ${{ secrets.TWITTER_BEARER_TOKEN }}
+        run: python bot.py

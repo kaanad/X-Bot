@@ -2,10 +2,11 @@ name: Twitter Bot
 
 on:
   schedule:
-    - cron: "30 10 * * *"  # 4:00 PM IST
-    - cron: "30 14 * * *"  # 8:00 PM IST
-  workflow_dispatch:        # allows manual run
-
+    - cron: "30 1 * * *"   # 7:00 AM IST (01:30 UTC)
+    - cron: "30 13 * * *"  # 7:00 PM IST (13:30 UTC)
+  workflow_dispatch:        # allows manual run for testing
+  push:                     # temporary: helps "wake up" the scheduler
+    branches: [ main ]
 
 jobs:
   tweet:

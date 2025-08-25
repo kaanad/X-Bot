@@ -1,7 +1,3 @@
-#Day1 #Fact1 : 🦒 A giraffe’s neck is too short to reach the ground. 🌿 #FunFactDay1
-
-#Day1 #Fact2 : 🌌 There are more stars in the universe than grains of sand on Earth. ✨ #FunFactDay1
-
 #Day2 #Fact1 : 🦇 Bats are the only mammals capable of true flight. 🕊️ #FunFactDay2
 
 #Day2 #Fact2 : 🐨 Koalas have fingerprints almost identical to humans. 🖐️ #FunFactDay2
@@ -197,3 +193,4 @@
 #Day50 #Fact1 : 🦉 Owls are silent fliers due to special wing feathers. 🤫 #FunFactDay50
 
 #Day50 #Fact2 : 🦋 Butterflies can’t fly if their body temperature is below 13°C. ❄️🦋 #FunFactDay50
+

@@ -49,8 +49,7 @@ except Exception as e:
     sys.exit(1)
 
 # Load posted tweets to track progress
-# --- Set starting point from Day2 Fact1 ---
-posted_count = 2  # Skip Day1 Fact1 and Fact2
+posted_count = 3  # Skip Day1 Fact1 and Fact2
 if os.path.exists(POSTED_TWEETS_FILE):
     try:
         with open(POSTED_TWEETS_FILE, "r", encoding="utf-8") as f:
@@ -62,7 +61,6 @@ if os.path.exists(POSTED_TWEETS_FILE):
     except Exception as e:
         print(f"⚠️ Error reading posted tweets: {e}")
         print(f"✅ Defaulting start to tweet #{posted_count + 1}")
-
 
 # Calculate which tweet to post next (sequential order)
 if posted_count >= len(all_tweets):
@@ -132,4 +130,3 @@ if __name__ == "__main__":
         print("ℹ️ This is normal if tweet was a duplicate or rate limited")
     
     print("🏁 Bot finished")
-

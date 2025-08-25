@@ -49,15 +49,20 @@ except Exception as e:
     sys.exit(1)
 
 # Load posted tweets to track progress
-posted_count = 0
+# --- Set starting point from Day2 Fact1 ---
+posted_count = 2  # Skip Day1 Fact1 and Fact2
 if os.path.exists(POSTED_TWEETS_FILE):
     try:
         with open(POSTED_TWEETS_FILE, "r", encoding="utf-8") as f:
             lines = f.readlines()
-            posted_count = len([line for line in lines if line.strip()])
-        print(f"✅ Found {posted_count} previously posted tweets")
+            existing_count = len([line for line in lines if line.strip()])
+            # Use whichever is higher: previously posted or Day2 start
+            posted_count = max(existing_count, posted_count)
+        print(f"✅ Starting from tweet #{posted_count + 1}")
     except Exception as e:
         print(f"⚠️ Error reading posted tweets: {e}")
+        print(f"✅ Defaulting start to tweet #{posted_count + 1}")
+
 
 # Calculate which tweet to post next (sequential order)
 if posted_count >= len(all_tweets):
@@ -127,3 +132,4 @@ if __name__ == "__main__":
         print("ℹ️ This is normal if tweet was a duplicate or rate limited")
     
     print("🏁 Bot finished")
+

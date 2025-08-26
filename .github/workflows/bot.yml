@@ -2,9 +2,9 @@ name: Twitter Bot
 
 on:
   schedule:
-    - cron: "17 3 * * *"   # ✅ CORRECT - 8:47 AM IST 
-    - cron: "47 15 * * *"  # ✅ CORRECT - 9:17 PM IST
-  workflow_dispatch:
+    - cron: "47 3 * * *"   # 9:17 AM IST (3:47 AM UTC)
+    - cron: "47 15 * * *"  # 9:17 PM IST (3:47 PM UTC)
+  workflow_dispatch:       # Allows manual triggering
 
 jobs:
   tweet:
@@ -38,6 +38,6 @@ jobs:
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git add posted_tweets.txt
-          git diff --staged --quiet || git commit -m "📝 Auto-update $(date)"
+          git diff --staged --quiet || git commit -m "📝 Auto-update posted tweets $(date)"
           git push
         continue-on-error: true

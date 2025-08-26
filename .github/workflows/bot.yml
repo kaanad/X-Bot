@@ -2,18 +2,20 @@ name: Twitter Bot
 
 on:
   schedule:
-    - cron: "30 1 * * *"   # 7:00 AM IST (01:30 UTC)
-    - cron: "30 13 * * *"  # 7:00 PM IST (13:30 UTC)
+    - cron: "30 3 * * *"   # 9:00 AM IST (03:30 UTC)
+    - cron: "30 15 * * *"  # 9:00 PM IST (15:30 UTC)
   workflow_dispatch:        # allows manual run for testing
-  push:                     # temporary: helps "wake up" the scheduler
-    branches: [ main ]
 
 jobs:
   tweet:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write  # Allow writing to repository
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -32,11 +34,31 @@ jobs:
           TWITTER_BEARER_TOKEN: ${{ secrets.TWITTER_BEARER_TOKEN }}
         run: python Xauto.py
 
+      - name: Check if posted_tweets.txt was updated
+        run: |
+          if [ -f "posted_tweets.txt" ]; then
+            echo "✅ posted_tweets.txt exists"
+            echo "📊 Current entries:"
+            wc -l posted_tweets.txt
+            echo "📝 Last few entries:"
+            tail -3 posted_tweets.txt || echo "File too short for tail"
+          else
+            echo "⚠️ posted_tweets.txt not found"
+          fi
+
       - name: Commit updated files
         run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          
+          # Add the posted tweets file
           git add posted_tweets.txt
-          git diff --staged --quiet || git commit -m "Update posted tweets log [skip ci]"
-          git push
-        continue-on-error: true
+          
+          # Check if there are changes to commit
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "📝 Update posted tweets log - $(date)"
+            git push
+            echo "✅ Changes committed and pushed"
+          fi

@@ -1,4 +1,3 @@
-#heheh
 name: Twitter Bot
 
 on:
@@ -12,6 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write  # Allow writing to repository
+      actions: write   # Allow workflow operations
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
@@ -63,3 +63,12 @@ jobs:
             git push
             echo "✅ Changes committed and pushed"
           fi
+
+  # Keepalive job to prevent workflow from being disabled
+  keepalive:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Keepalive
+        uses: gautamkrishnar/keepalive-workflow@master
